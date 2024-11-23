@@ -73,7 +73,14 @@ Here goes...
 
 ## Elasticsearch
 ### Installation
-
+- Get elasticsearch debian package
+    ```bash
+    wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.16.0-amd64.deb
+    ```
 
 ## Kibana
 ### Installation
+- Get kibana debian package
+    ```bash
+    wget https://artifacts.elastic.co/downloads/kibana/kibana-8.16.0-amd64.deb
+    ```
