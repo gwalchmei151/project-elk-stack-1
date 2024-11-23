@@ -71,16 +71,28 @@ Here goes...
     sudo systemctl restart networking 
     ```
 
-## Elasticsearch
-### Installation
+## Installation
+### Elasticsearch
 - Get elasticsearch debian package
     ```bash
     wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.16.0-amd64.deb
     ```
+- Install
+    ```bash
+    sudo dpkg -i elasticsearch-8.16.0-amd64.deb
+    ```
+- Take note of [output](/information.md)
 
-## Kibana
-### Installation
+### Kibana
 - Get kibana debian package
     ```bash
     wget https://artifacts.elastic.co/downloads/kibana/kibana-8.16.0-amd64.deb
     ```
+- Install
+    ```bash
+    sudo dpkg -i kibana-8.16.0-amd64.deb
+    ```
+- Take note of [output](/information.md)
+### Screenshots
+![wget packages](/assets/wget-packages.png)
+![dpkg install](/assets/dpkg-install.png)
