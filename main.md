@@ -96,3 +96,6 @@ Here goes...
 ### Screenshots
 ![wget packages](/assets/wget-packages.png)
 ![dpkg install](/assets/dpkg-install.png)
+
+## Configuration
+### Elasticsearch
