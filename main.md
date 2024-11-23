@@ -99,3 +99,15 @@ Here goes...
 
 ## Configuration
 ### Elasticsearch
+1. Configure the network hosts portion of the yml file first
+    ```bash
+    sudo nano /etc/elasticsearch/elasticsearch.yml
+    ```
+    ![elasticsearch-yml-network](/assets/elastic-yml-network.png)
+
+2. Enable elasticsearch - `sudo systemctl enable elasticsearch`
+3. Start elastic - `sudo systemctl start elasticsearch`
+4. Check status - `sudo systemctl status elasticsearch`
+![alt text](/assets/elastic-enable-start-status.png)
+5. Generate passwords for built-in users - `sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive`
+    - Ran into issue with keystore here and switched into troubleshooting mode, documented [here](./troubleshooting.md)
