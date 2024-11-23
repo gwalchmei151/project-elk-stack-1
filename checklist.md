@@ -1,4 +1,4 @@
-# Checklist for ELK Stack Implementation
+# Checklist for ELK Stack Implementation - UNDER CONSTRUCTION
 
 ## Elastic
 ### VM Setup

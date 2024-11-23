@@ -1,4 +1,4 @@
-# Project: ELK Stack Implementation
+# Project: ELK Stack Implementation - UNDER CONSTRUCTION
 ## Objectives
 - Install Elasticsearch, Logstash, and Kibana different hosts
 - Ensure the different components can communicate with each other
