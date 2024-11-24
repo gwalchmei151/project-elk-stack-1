@@ -160,3 +160,5 @@ We now have ensure the security is setup properly before we progress further. I'
     `/usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.transport.ssl.truststore.secure_password`
 8. Stare in a mixture of disbelief and relief that elasticsearch restarted without issue
     ![](/assets/Configuration/Elasticsearch/xpacksec/post-keystore-update-restart.png)
+
+### Built-in Users

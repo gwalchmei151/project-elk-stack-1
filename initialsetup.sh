@@ -16,7 +16,7 @@ function install_nala {
 }
 
 function install_packages {
-    nala install sudo net-tools gnupg2 apt-transport-https curl vim
+    nala install sudo net-tools gnupg2 apt-transport-https curl vim zip
 }
 
 function main {
