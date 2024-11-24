@@ -3,7 +3,7 @@ This section will document all the random issues that crop up and the steps take
 
 ## Failed to authenticate user 'elastic' against https://192.168.126.10:9200/_security/_authenticate?pretty
 
-![](/assets/trouble-setup-pass-failure-1.png)
+![](/assets/Troubleshooting/AuthenticationFailure/trouble-setup-pass-failure-1.png)
 
 There are a few things I can try - I have tried resetting the password before in a former iteration of this project. This time I think we will regenerate the keystore first.
 
@@ -52,7 +52,7 @@ Caused by: java.security.UnrecoverableKeyException: failed to decrypt safe conte
 
 - But we aren't given the passwords to any of those files at creation
 - The password we have is correct
-    ![](/assets/test-pw-curl-1.png)
+    ![](/assets/Troubleshooting/AuthenticationFailure/test-pw-curl-1.png)
 - [cat /var/log/elasticsearch/elasticsearch.log](./troubleshoot-journalctl-elastic-20241124-0437.log)
 - We notice a few things from the error message
     - `org.elasticsearch.ElasticsearchSecurityException: failed to load SSL configuration [xpack.security.transport.ssl] `
@@ -76,13 +76,13 @@ Caused by: java.security.UnrecoverableKeyException: failed to decrypt safe conte
         `sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add xpack.security.transport.ssl.keystore.secure_password`
     8. Update the elastisearch.yml file
     9. Realise that the permissions of the new files could be causing issues
-    ![](/assets/ls-la-certs-permissions.png)
+    ![](/assets/Troubleshooting/AuthenticationFailure/ls-la-certs-permissions.png)
     10. Change ownership
         `sudo chown elasticsearch:elasticsearch /etc/elasticsearch/certs/*`
     11. Set correct permissions
         `sudo chmod 640 /etc/elasticsearch/certs/*`
     12. Update yml file to have absolute file path and restart service
-        ![](/assets/elastic-yml-certs-absolute-file-path.png)
+        ![](/assets/Troubleshooting/AuthenticationFailure/elastic-yml-certs-absolute-file-path.png)
     13. We get AccessDeniedException errors in the new [log](./troubleshoot-journalctl-elastic-20241124-0557.log)
     14. Reset ownership and permissions for directory and files
         ```bash

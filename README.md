@@ -6,4 +6,4 @@
 - Setup honeypot
 - Simulate attacks on system to test if logs are generated
 
-![](/assets/intro-image.png)
+![](/assets/Misc/intro-image.png)
