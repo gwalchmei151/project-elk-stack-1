@@ -51,7 +51,7 @@ function check_users {
     done
 
     read -p "Enter Selection Number Here: " OPT
-    OPT=$((OPT - 1)) 
+    OPT=$((OPT - 1))
     echo -e "${Light_Green}[ + ]${NC} You have chosen to install as ${Light_Cyan}${HOMEDIR[$OPT]}${NC}"
     echo -e "${Light_Green}[ + ] Changing directory to ${Light_Cyan}/home/${HOMEDIR[$OPT]}${NC}..."
     cd /home/"${HOMEDIR[$OPT]}"
@@ -61,10 +61,17 @@ function install_starship {
     echo -e "${Light_Green}[ + ]${NC} Installing starship prompt${NC}"
     curl -sS https://starship.rs/install.sh | sh
     echo -e "${Light_Green}[ + ]${NC} Starship Installed${NC}"
+    echo 'eval $(starship init bash)' >> .bashrc
     mkdir ".config"
     cd ".config"
     wget "https://raw.githubusercontent.com/gwalchmei151/tushar-personal-configs/refs/heads/main/starship.toml"
-    reset
+    cd ~
+    echo 'eval $(starship init bash)' >> .bashrc
+    mkdir ".config"
+    cd ".config"
+    wget "https://raw.githubusercontent.com/gwalchmei151/tushar-personal-configs/refs/heads/main/starship.toml"
+    cd /home/"${HOMEDIR[$OPT]}"
+    
 }   
 
 function update_repo {
@@ -77,6 +84,10 @@ function install_nala {
 
 function install_packages {
     nala install sudo net-tools gnupg2 apt-transport-https curl vim
+}
+
+function make_user_sudo {
+    usermod -aG sudo "${HOMEDIR[$OPT]}"
 }
 
 function choose_installer {
@@ -124,10 +135,12 @@ function choose_installer {
 function main {
     check_root
     check_users
+    cd /home/"${HOMEDIR[$OPT]}"
     update_repo
-    install_starship
     install_nala
     install_packages
+    install_starship
+    make_user_sudo
     echo "Importing Elasticsearch Signing Key..."
     wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
     echo "Done"
