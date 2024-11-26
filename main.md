@@ -113,6 +113,34 @@ Here goes...
 5. Generate passwords for built-in users - `sudo /usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive`
     - Ran into issue with keystore here and switched into troubleshooting mode, documented [here](./troubleshooting.md)
 
+### Generate Certificate Authority + Certificates
+After some time (read: repeated failures to start the service and poring over logs wondering what the hell is going on), it becomes clear, that due to some of elastic's installation automations (like generating a password for elastic superuser) and defaults (xpack security enabled), we need to immediately generate our own certificates for which we have the passwords.
+
+1. Switch to root user - `su -`
+2. `cd /etc/elasticsearch/certs`
+3. Generate Certificate Authority
+    `/usr/share/elasticsearch/bin/elasticsearch-certutil ca`
+    - We used pw: Passw0rd!
+    - This generates a elastic-stack-ca.p12 file in the main install folder
+    ![](/assets/Configuration/Elasticsearch/xpacksec/generate-ca.png)
+    - We also will be copying the file to the `/etc/elasticsearch/certs` directory
+        `cp /usr/share/elasticsearch/elastic-stack-ca.p12 /etc/elasticsearch/certs/`
+4. Generate elasticsearch certs signed by CA (will also be useful for nodes later on)
+    `/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca /etc/elasticsearch/certs/elastic-stack-ca.p12`
+    - Use password "Passw0rd!" as well
+    - Will also be generated in the main install folder, so we will copy it over to the /certs directory
+        `cp /usr/share/elasticsearch/elastic-certificates.p12 /etc/elasticsearch/certs/`
+5. Generate http.p12 cert
+    `/usr/share/elasticsearch/bin/elasticsearch-certutil http`
+    - Generate a CSR (Certificate Signing Request) - n
+    - Use existing CA - y
+    - Provide path to CA and enter password when prompted
+    - Provide validity period
+    - Generate certificate per node - y
+6. Adjust ownership and read-write permissions of newly created certificates
+    ![](/assets/Configuration/Elasticsearch/xpacksec/chown-chmod-certs.png)
+
+
 ### xpack security
 It appears that because the default setting in the elasticsearch.yml is
 ```yml 
